@@ -1,0 +1,14 @@
+src/
+__mocks__/
+__tests__/
+.nyc_output/
+test/
+coverage/
+tsconfig.json
+tslint.json
+jest.config.js
+**/*.spec.*
+webpack.config.js
+.vscode
+.editorconfig
+*.log

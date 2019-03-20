@@ -1,0 +1,14 @@
+node_modules/
+build/
+dist/
+test/
+src/**.js
+.idea/*
+
+coverage/
+*.lcov
+.nyc_output/
+*.log
+
+# ignore package-lock.json because this project only uses yarn
+package-lock.json

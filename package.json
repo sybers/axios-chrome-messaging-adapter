@@ -1,0 +1,41 @@
+{
+  "name": "axios-chrome-messaging-adapter",
+  "version": "0.1.0",
+  "description": "Axios adapter using Chrome Extensions Messaging to perform requests from the background page.",
+  "main": "index.js",
+  "homepage": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
+  "author": {
+    "name": "Stanyslas Bres",
+    "email": "stanyslas.bres@gmail.com",
+    "url": "https://github.com/Gramatiik"
+  },
+  "repository": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
+  "license": "MIT",
+  "keywords": [
+    "axios",
+    "adapter",
+    "chrome extension",
+    "CORB"
+  ],
+  "scripts": {
+    "build": "run-s clean && run-p build:*",
+    "build:node": "tsc -p tsconfig.json",
+    "build:dist": "webpack",
+    "watch": "run-s clean build:node && run-p \"build:node -- -w\"",
+    "clean": "rimraf build dist test"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.81",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.3",
+    "terser-webpack-plugin": "^1.2.3",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
