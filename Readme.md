@@ -76,6 +76,7 @@ Clone the project to the directory and install dependencies
 $ git clone https://github.com/Gramatiik/axios-chrome-messaging-adapter
 $ cd axios-chrome-messaging-adapter
 $ yarn # or npm install
+$ npm i --no-save axios # install axios peer dependency
 ```
 
 Start typescript compilation in watch mode
