@@ -24,7 +24,7 @@
     "watch": "run-s clean build:node && run-p \"build:node -- -w\"",
     "clean": "rimraf build dist test"
   },
-  "dependencies": {
+  "peerDependencies": {
     "axios": "^0.18.0"
   },
   "devDependencies": {
