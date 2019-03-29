@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function registerAdapter() {
+export function registerMessageHandler() {
   chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
       if (request.name === 'axiosMessagingAdapterRequest') {
           // perform axios request in the background script

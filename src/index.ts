@@ -1,8 +1,8 @@
 import { adapter } from './adapter';
-import { registerAdapter } from './registerAdapter';
+import { registerMessageHandler } from './registerMessageHandler';
 
 // tslint:disable-next-line:no-default-export
 export default {
   adapter,
-  registerAdapter,
+  registerMessageHandler,
 };
