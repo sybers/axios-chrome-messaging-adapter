@@ -40,7 +40,7 @@ const axios = require('axios')
 const axiosChromeMessagingAdapter = require('axios-chrome-messaging-adapter')
 
 // register the adapter message hanlder
-axiosChromeMessagingAdapter.registerAdapter()
+axiosChromeMessagingAdapter.registerMessageHandler()
 ```
 
 In your content script:
