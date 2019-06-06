@@ -51,7 +51,7 @@ const axiosChromeMessagingAdapter = require('axios-chrome-messaging-adapter')
 
 // tell axios to use the adapter for this request
 axios({
-  adapter: axiosChromeMessagingAdapter.adapter
+  adapter: axiosChromeMessagingAdapter
   ... // the rest of your configuration :)
 })
 ```
