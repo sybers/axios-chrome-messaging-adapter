@@ -1,14 +1,9 @@
-import { AxiosRequestConfig, AxiosPromise } from 'axios';
 import { adapter } from './adapter';
 import { registerMessageHandler } from './registerMessageHandler';
+import { AxiosChromeMessagingAdapter } from './types';
 
-interface AxiosChromeMessagingAdapter {
-  (config: AxiosRequestConfig): AxiosPromise;
-
-  registerMessageHandler(): void;
-}
-
-(adapter as AxiosChromeMessagingAdapter).registerMessageHandler = registerMessageHandler;
+const adapterWithRegister = (adapter as AxiosChromeMessagingAdapter);
+adapterWithRegister.registerMessageHandler = registerMessageHandler;
 
 // tslint:disable-next-line:no-default-export
-export default adapter;
+export default adapterWithRegister;
