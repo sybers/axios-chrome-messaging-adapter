@@ -1,6 +1,6 @@
 {
   "name": "axios-chrome-messaging-adapter",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Axios adapter using Chrome Extensions Messaging to perform requests from the background page.",
   "main": "build/index.js",
   "homepage": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
