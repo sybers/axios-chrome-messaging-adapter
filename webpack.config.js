@@ -20,7 +20,6 @@ function generateLibraryConfig(name) {
       sourceMapFilename: name + '.js.map',
       library: libraryName,
       libraryTarget: 'umd',
-      libraryExport: 'default',
       umdNamedDefine: true,
       globalObject: '(typeof self !== \'undefined\' ? self : this)'
     },
