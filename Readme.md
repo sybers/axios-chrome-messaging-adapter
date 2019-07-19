@@ -26,7 +26,7 @@ Axios must be available as a global object so you'll need to import it from a CD
 
 ```html
 <script src="https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
-<script src="https://unpkg.com/axios-chrome-messaging-adapter@0.1.0/dist/axios-chrome-messaging-adapter.min.js"></script>
+<script src="https://unpkg.com/axios-chrome-messaging-adapter@0.3.1/dist/axios-chrome-messaging-adapter.min.js"></script>
 ```
 
 ### Quick start 
