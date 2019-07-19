@@ -33,24 +33,24 @@ Axios must be available as a global object so you'll need to import it from a CD
 
 If you are using a bundler, like webpack or rollup:, you'll just need to **`require`** the lib. If you are using a CDN, the lib will be available under **`window.axiosChromeMessagingAdapter`**.
 
-In your background script:
+In your **background** script:
 
 ```javascript
-const axios = require('axios')
-const axiosChromeMessagingAdapter = require('axios-chrome-messaging-adapter')
+import axios from 'axios'
+import axiosChromeMessagingAdapter from 'axios-chrome-messaging-adapter'
 
 // register the adapter message hanlder
 axiosChromeMessagingAdapter.registerMessageHandler()
 ```
 
-In your content script:
+In your **content** script:
 
 ```javascript
-const axios = require('axios')
-const axiosChromeMessagingAdapter = require('axios-chrome-messaging-adapter')
+import axios from 'axios'
+import axiosChromeMessagingAdapter from 'axios-chrome-messaging-adapter'
 
 // tell axios to use the adapter for this request
-axios({
+const axiosInstance = axios.create({
   adapter: axiosChromeMessagingAdapter
   ... // the rest of your configuration :)
 })
