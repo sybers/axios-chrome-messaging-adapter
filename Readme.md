@@ -37,21 +37,21 @@ In your **background** script:
 
 ```javascript
 import axios from 'axios'
-import axiosChromeMessagingAdapter from 'axios-chrome-messaging-adapter'
+import { registerMessageHandler } from 'axios-chrome-messaging-adapter'
 
 // register the adapter message hanlder
-axiosChromeMessagingAdapter.registerMessageHandler()
+registerMessageHandler()
 ```
 
 In your **content** script:
 
 ```javascript
 import axios from 'axios'
-import axiosChromeMessagingAdapter from 'axios-chrome-messaging-adapter'
+import { adapter } from 'axios-chrome-messaging-adapter'
 
 // tell axios to use the adapter for this request
 const axiosInstance = axios.create({
-  adapter: axiosChromeMessagingAdapter
+  adapter,
   ... // the rest of your configuration :)
 })
 ```
