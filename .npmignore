@@ -10,5 +10,5 @@ jest.config.js
 **/*.spec.*
 webpack.config.js
 .vscode
-.editorconfig
+.prettierrc.js
 *.log
