@@ -4,13 +4,13 @@
   "description": "Axios adapter using Chrome Extensions Messaging to perform requests from the background page.",
   "main": "build/index.js",
   "sideEffects": false,
-  "homepage": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
+  "homepage": "https://github.com/dzetah/axios-chrome-messaging-adapter",
   "author": {
-    "name": "Stanyslas Bres",
-    "email": "stanyslas.bres@gmail.com",
-    "url": "https://github.com/Gramatiik"
+    "name": "dzetah",
+    "email": "dzetah@pm.me",
+    "url": "https://github.com/dzetah"
   },
-  "repository": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
+  "repository": "https://github.com/dzetah/axios-chrome-messaging-adapter",
   "license": "MIT",
   "keywords": [
     "axios",

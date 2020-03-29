@@ -29,18 +29,18 @@ Axios must be available as a global object so you'll need to import it from a CD
 <script src="https://unpkg.com/axios-chrome-messaging-adapter@0.3.1/dist/axios-chrome-messaging-adapter.min.js"></script>
 ```
 
-### Quick start 
+### Quick start
 
 If you are using a bundler, like webpack or rollup:, you'll just need to **`require`** the lib. If you are using a CDN, the lib will be available under **`window.axiosChromeMessagingAdapter`**.
 
 In your **background** script:
 
 ```javascript
-import axios from 'axios'
-import { registerMessageHandler } from 'axios-chrome-messaging-adapter'
+import axios from 'axios';
+import { registerMessageHandler } from 'axios-chrome-messaging-adapter';
 
 // register the adapter message hanlder
-registerMessageHandler()
+registerMessageHandler();
 ```
 
 In your **content** script:
@@ -59,6 +59,7 @@ const axiosInstance = axios.create({
 ## Known limitations
 
 The adapter is currently incompatible with the following axios parameters:
+
 - paramsSerializer
 - onUploadProgress
 - onDownloadProgress
@@ -73,7 +74,7 @@ If one of these options is used, it will be ignored and the content script will 
 Clone the project to the directory and install dependencies
 
 ```bash
-$ git clone https://github.com/Gramatiik/axios-chrome-messaging-adapter
+$ git clone https://github.com/dzetah/axios-chrome-messaging-adapter
 $ cd axios-chrome-messaging-adapter
 $ yarn # or npm install
 $ npm i --no-save axios # install axios peer dependency
