@@ -3,6 +3,7 @@
   "version": "0.3.1",
   "description": "Axios adapter using Chrome Extensions Messaging to perform requests from the background page.",
   "main": "build/index.js",
+  "sideEffects": false,
   "homepage": "https://github.com/Gramatiik/axios-chrome-messaging-adapter",
   "author": {
     "name": "Stanyslas Bres",
