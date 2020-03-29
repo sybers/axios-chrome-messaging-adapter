@@ -1,15 +1,14 @@
-'use strict'
-const path = require('path')
-const TerserWebpackPlugin = require('terser-webpack-plugin')
+'use strict';
+const path = require('path');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
-const inputPath = path.join(__dirname, 'src')
-const outputPath = path.join(__dirname, 'dist')
+const inputPath = path.join(__dirname, 'src');
+const outputPath = path.join(__dirname, 'dist');
 
-const libraryName = 'axiosChromeMessagingAdapter'
+const libraryName = 'axiosChromeMessagingAdapter';
 
 function generateLibraryConfig(name) {
-
-  const uglify = name.match(/\.min$/)
+  const uglify = name.match(/\.min$/);
 
   const config = {
     mode: 'none',
@@ -21,7 +20,7 @@ function generateLibraryConfig(name) {
       library: libraryName,
       libraryTarget: 'umd',
       umdNamedDefine: true,
-      globalObject: '(typeof self !== \'undefined\' ? self : this)'
+      globalObject: "(typeof self !== 'undefined' ? self : this)"
     },
     externals: {
       axios: {
@@ -51,7 +50,7 @@ function generateLibraryConfig(name) {
     optimization: {
       noEmitOnErrors: true
     }
-  }
+  };
 
   if (uglify) {
     config.optimization = Object.assign(config.optimization || {}, {
@@ -61,14 +60,17 @@ function generateLibraryConfig(name) {
           sourceMap: true
         })
       ]
-    })
+    });
 
     config.plugins = (config.plugins || []).concat([
       // add production only plugins here...
-    ])
+    ]);
   }
 
-  return config
+  return config;
 }
 
-module.exports = ['axios-chrome-messaging-adapter', 'axios-chrome-messaging-adapter.min'].map(generateLibraryConfig)
+module.exports = [
+  'axios-chrome-messaging-adapter',
+  'axios-chrome-messaging-adapter.min'
+].map(generateLibraryConfig);
