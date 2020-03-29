@@ -1,23 +1,26 @@
 'use strict';
 const path = require('path');
+const webpack = require('webpack');
+const camelcase = require('camelcase');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { name, version, author, license } = require('./package.json');
 
-const inputPath = path.join(__dirname, 'src');
-const outputPath = path.join(__dirname, 'dist');
+const banner = `/*!
+ * ${name} ${version}
+ * (c) 2019-${new Date().getFullYear()} ${author.name} <${author.email}>
+ * Released under the ${license} License.
+ */`;
 
-const libraryName = 'axiosChromeMessagingAdapter';
-
-function generateLibraryConfig(name) {
-  const uglify = name.match(/\.min$/);
-
+module.exports = (env = {}) => {
   const config = {
     mode: 'none',
-    entry: inputPath,
+    entry: path.resolve(__dirname, 'src'),
     output: {
-      path: outputPath,
+      path: path.resolve(__dirname, 'dist'),
       filename: name + '.js',
       sourceMapFilename: name + '.js.map',
-      library: libraryName,
+      library: camelcase(name),
       libraryTarget: 'umd',
       umdNamedDefine: true,
       globalObject: "(typeof self !== 'undefined' ? self : this)"
@@ -42,14 +45,14 @@ function generateLibraryConfig(name) {
     resolve: {
       extensions: ['.ts', '.js']
     },
-    plugins: [],
+    plugins: [new CleanWebpackPlugin()],
     devtool: 'source-map',
     optimization: {
       noEmitOnErrors: true
     }
   };
 
-  if (uglify) {
+  if (env.prod) {
     config.optimization = Object.assign(config.optimization || {}, {
       minimize: true,
       minimizer: [
@@ -60,14 +63,12 @@ function generateLibraryConfig(name) {
     });
 
     config.plugins = (config.plugins || []).concat([
-      // add production only plugins here...
+      new webpack.BannerPlugin({
+        banner,
+        raw: true
+      })
     ]);
   }
 
   return config;
-}
-
-module.exports = [
-  'axios-chrome-messaging-adapter',
-  'axios-chrome-messaging-adapter.min'
-].map(generateLibraryConfig);
+};

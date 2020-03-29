@@ -2,7 +2,8 @@
   "name": "axios-chrome-messaging-adapter",
   "version": "0.3.1",
   "description": "Axios adapter using Chrome Extensions Messaging to perform requests from the background page.",
-  "main": "build/index.js",
+  "main": "./dist/axios-chrome-messaging-adapter.min.js",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "homepage": "https://github.com/dzetah/axios-chrome-messaging-adapter",
   "author": {
@@ -19,20 +20,19 @@
     "CORB"
   ],
   "scripts": {
-    "build": "run-s clean && run-p build:*",
-    "build:node": "tsc -p tsconfig.json",
-    "build:dist": "webpack",
-    "watch": "run-s clean build:node && run-p \"build:node -- -w\"",
-    "clean": "rimraf build dist test"
+    "dev": "webpack",
+    "watch": "webpack --watch",
+    "prod": "webpack --env.prod"
   },
   "peerDependencies": {
     "axios": "^0.18.0"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.83",
+    "camelcase": "^5.3.1",
+    "clean-webpack-plugin": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "2.0.2",
-    "rimraf": "^2.6.3",
     "terser-webpack-plugin": "^1.2.3",
     "ts-loader": "^5.4.4",
     "tslint": "^5.16.0",

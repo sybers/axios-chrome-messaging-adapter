@@ -67,7 +67,7 @@ The adapter is currently incompatible with the following axios parameters:
 
 This limitation is due to the fact that only scalar values can pass through the chrome messaging API, making these callbacks functions unavailable for the moment.
 
-If one of these options is used, it will be ignored and the content script will show a warning.
+If one of these options is used, it will be ignored and the content script will emit a warning.
 
 ## Development
 
