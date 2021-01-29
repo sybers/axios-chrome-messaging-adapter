@@ -1,13 +1,16 @@
 import { AxiosRequestConfig, AxiosPromise } from 'axios';
+import { arrayBufferToDataURL, isArrayBuffer } from './utils';
 
-function filterUnsupportedConfig(config: AxiosRequestConfig) {
-  const unsupportedConfigs = [
+function filterUnsupportedConfig(
+  config: AxiosRequestConfig
+): Partial<AxiosRequestConfig> {
+  const unsupportedConfigs: string[] = [
     'paramsSerializer',
     'onUploadProgress',
     'onDownloadProgress',
     'cancelToken'
   ];
-  const filtered = Object.keys(config)
+  const filtered: Partial<AxiosRequestConfig> = Object.keys(config)
     .filter((key) => {
       const inBlackList = unsupportedConfigs.indexOf(key) !== -1;
       if (inBlackList) {
@@ -23,6 +26,10 @@ function filterUnsupportedConfig(config: AxiosRequestConfig) {
 
       return acc;
     }, {});
+
+  if (isArrayBuffer(filtered.data)) {
+    filtered.data = arrayBufferToDataURL(filtered.data);
+  }
 
   return filtered;
 }
