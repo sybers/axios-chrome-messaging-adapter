@@ -1,38 +1,38 @@
-export function isArrayBuffer(type, val) {
-  // @ts-ignore
-  // eslint-disable-next-line
-  return ![, null].includes(val) && val.constructor === type;
+export function isArrayBuffer(data): boolean {
+  return (
+    data !== undefined && data !== null && data.constructor === ArrayBuffer
+  );
 }
 
-export function isArrayBufferDataUrl(data: string) {
-  const regex = /^data:encoded-array-buffer(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*?)$/i;
-
-  return regex.test((data || '').trim());
+export function isArrayBufferDataUrl(data: string): boolean {
+  return (data || '').trim().startsWith('data:encoded-array-buffer;base64,');
 }
 
-export function arrayBufferToDataURL(buffer: ArrayBuffer) {
+export function arrayBufferToDataURL(buffer: ArrayBuffer): string {
   return `data:encoded-array-buffer;base64,${arrayBufferToBase64(buffer)}`;
 }
 
-export function dataURLToArrayBuffer(data: string) {
+export function dataURLToArrayBuffer(data: string): ArrayBuffer {
   return base64ToArrayBuffer(data.substring(data.indexOf(',') + 1));
 }
 
-function arrayBufferToBase64(buffer) {
-  var binary = '';
-  var bytes = new Uint8Array(buffer);
-  var len = bytes.byteLength;
-  for (var i = 0; i < len; i++) {
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  let binary = '';
+
+  for (let i = 0; i < len; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
   return window.btoa(binary);
 }
 
-function base64ToArrayBuffer(base64) {
-  var binary_string = window.atob(base64);
-  var len = binary_string.length;
-  var bytes = new Uint8Array(len);
-  for (var i = 0; i < len; i++) {
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+  const binary_string = window.atob(base64);
+  const len = binary_string.length;
+  let bytes = new Uint8Array(len);
+
+  for (let i = 0; i < len; i++) {
     bytes[i] = binary_string.charCodeAt(i);
   }
   return bytes.buffer;
