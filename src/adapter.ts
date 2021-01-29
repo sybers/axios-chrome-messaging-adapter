@@ -1,4 +1,5 @@
 import { AxiosRequestConfig, AxiosPromise } from 'axios';
+import { arrayBufferToDataURL, isArrayBuffer } from './utils';
 
 function filterUnsupportedConfig(config: AxiosRequestConfig) {
   const unsupportedConfigs = [
@@ -7,7 +8,7 @@ function filterUnsupportedConfig(config: AxiosRequestConfig) {
     'onDownloadProgress',
     'cancelToken'
   ];
-  const filtered = Object.keys(config)
+  const filtered: Partial<AxiosRequestConfig> = Object.keys(config)
     .filter((key) => {
       const inBlackList = unsupportedConfigs.indexOf(key) !== -1;
       if (inBlackList) {
@@ -24,8 +25,14 @@ function filterUnsupportedConfig(config: AxiosRequestConfig) {
       return acc;
     }, {});
 
+  if (isArrayBuffer(ArrayBuffer, filtered.data)) {
+    filtered.data = arrayBufferToDataURL(filtered.data);
+  }
+
   return filtered;
 }
+
+
 
 export function adapter(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
