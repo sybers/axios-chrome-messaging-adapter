@@ -5,7 +5,7 @@ __tests__/
 test/
 coverage/
 tsconfig.json
-tslint.json
+.eslintrc.js
 jest.config.js
 **/*.spec.*
 webpack.config.js
