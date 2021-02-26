@@ -12,14 +12,14 @@ function filterUnsupportedConfig(
   ];
   const filtered: Partial<AxiosRequestConfig> = Object.keys(config)
     .filter((key) => {
-      const inBlackList = unsupportedConfigs.indexOf(key) !== -1;
-      if (inBlackList) {
+      const isUnsupported = unsupportedConfigs.indexOf(key) !== -1;
+      if (isUnsupported) {
         console.warn(
           `Axios Chrome Messaging adapter: skipped unsupported axios configuration "${key}"`
         );
       }
 
-      return !inBlackList;
+      return !isUnsupported;
     })
     .reduce((acc, key) => {
       acc[key] = config[key];

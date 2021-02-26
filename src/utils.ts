@@ -1,4 +1,4 @@
-export function isArrayBuffer(data): boolean {
+export function isArrayBuffer(data: any): data is ArrayBuffer {
   return (
     data !== undefined && data !== null && data.constructor === ArrayBuffer
   );
@@ -30,7 +30,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 function base64ToArrayBuffer(base64: string): ArrayBuffer {
   const binary_string = window.atob(base64);
   const len = binary_string.length;
-  let bytes = new Uint8Array(len);
+  const bytes = new Uint8Array(len);
 
   for (let i = 0; i < len; i++) {
     bytes[i] = binary_string.charCodeAt(i);

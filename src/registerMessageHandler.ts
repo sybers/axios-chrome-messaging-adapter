@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { dataURLToArrayBuffer, isArrayBufferDataUrl } from './utils';
 
-export function registerMessageHandler() {
+export function registerMessageHandler(): void {
   chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
     if (request.name === 'axiosMessagingAdapterRequest') {
       // perform axios request in the background script
