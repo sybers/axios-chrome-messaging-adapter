@@ -30,7 +30,7 @@
     "node": ">=10.13.0"
   },
   "peerDependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.133",
