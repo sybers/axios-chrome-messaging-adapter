@@ -21,7 +21,7 @@ function filterUnsupportedConfig(
 
       return !isUnsupported;
     })
-    .reduce((acc, key) => {
+    .reduce((acc: Partial<AxiosRequestConfig>, key ) => {
       acc[key] = config[key];
 
       return acc;
