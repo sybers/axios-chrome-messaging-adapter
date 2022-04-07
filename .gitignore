@@ -10,5 +10,7 @@ coverage/
 .nyc_output/
 *.log
 
+.DS_Store
+
 # ignore package-lock.json because this project only uses yarn
 package-lock.json
