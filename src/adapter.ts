@@ -1,21 +1,28 @@
 import { AxiosRequestConfig, AxiosPromise } from 'axios';
+import {
+  AxiosMessagingAdapterConfig,
+  AxiosMessagingAdapterResponse
+} from './types';
 import { arrayBufferToDataURL, isArrayBuffer } from './utils';
+
+export const unsupportedAxiosOptions = [
+  'paramsSerializer',
+  'onUploadProgress',
+  'onDownloadProgress',
+  'cancelToken',
+  'transformRequest',
+  'transformResponse'
+] as const;
 
 function filterUnsupportedConfig(
   config: AxiosRequestConfig
-): Partial<AxiosRequestConfig> {
-  const unsupportedConfigs: string[] = [
-    'paramsSerializer',
-    'onUploadProgress',
-    'onDownloadProgress',
-    'cancelToken'
-  ];
-  const filtered: Partial<AxiosRequestConfig> = Object.keys(config)
+): AxiosMessagingAdapterConfig {
+  const filteredConfig: Partial<AxiosRequestConfig> = Object.keys(config)
     .filter((key) => {
-      const isUnsupported = unsupportedConfigs.indexOf(key) !== -1;
+      const isUnsupported = unsupportedAxiosOptions.indexOf(key as any) !== -1;
       if (isUnsupported) {
         console.warn(
-          `Axios Chrome Messaging adapter: skipped unsupported axios configuration "${key}"`
+          `Axios Chrome Messaging adapter: skipped unsupported axios option "${key}"`
         );
       }
 
@@ -27,32 +34,35 @@ function filterUnsupportedConfig(
       return acc;
     }, {});
 
-  if (isArrayBuffer(filtered.data)) {
-    filtered.data = arrayBufferToDataURL(filtered.data);
-  }
-
-  return filtered;
+  return filteredConfig;
 }
 
 export function adapter(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const messageConfig = {
-      name: 'axiosMessagingAdapterRequest',
-      config: filterUnsupportedConfig(config)
-    };
+    const filteredConfig = filterUnsupportedConfig(config);
 
-    chrome.runtime.sendMessage(messageConfig, (message) => {
-      // there was an error with the chrome messaging API
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError);
+    if (isArrayBuffer(filteredConfig.data)) {
+      filteredConfig.data = arrayBufferToDataURL(filteredConfig.data);
+    }
+
+    chrome.runtime.sendMessage(
+      {
+        name: 'axiosMessagingAdapterRequest',
+        axiosConfig: filterUnsupportedConfig(config)
+      },
+      (message: AxiosMessagingAdapterResponse) => {
+        // there was an error with the chrome messaging API
+        if (chrome.runtime.lastError) {
+          return reject(chrome.runtime.lastError);
+        }
+
+        // the request errored
+        if (message.error) {
+          return reject(message.error);
+        }
+
+        return resolve(message.response);
       }
-
-      // the request errored
-      if (message.error) {
-        reject(message.error);
-      }
-
-      resolve(message.response);
-    });
+    );
   });
 }
