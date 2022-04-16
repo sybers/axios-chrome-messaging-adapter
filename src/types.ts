@@ -4,7 +4,9 @@ export const unsupportedAxiosOptions = [
   'paramsSerializer',
   'onUploadProgress',
   'onDownloadProgress',
-  'cancelToken'
+  'cancelToken',
+  'transformRequest',
+  'transformResponse'
 ] as const;
 
 export type AxiosMessagingAdapterConfig = Omit<
