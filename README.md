@@ -35,7 +35,7 @@ If you are using a bundler, like webpack or rollup:, you'll just need to **`requ
 
 In your **background** script:
 
-```javascript
+```typescript
 import axios from 'axios';
 import { registerMessageHandler } from 'axios-chrome-messaging-adapter';
 
@@ -45,7 +45,7 @@ registerMessageHandler();
 
 In your **content** script:
 
-```javascript
+```typescript
 import axios from 'axios'
 import { adapter } from 'axios-chrome-messaging-adapter'
 
@@ -64,10 +64,27 @@ The adapter is currently incompatible with the following axios parameters:
 - onUploadProgress
 - onDownloadProgress
 - cancelToken
+- transformRequest (axios 0.19+)
+- transformResponse (axios 0.19+)
 
 This limitation is due to the fact that only scalar values can pass through the chrome messaging API, making these callbacks functions unavailable for the moment.
 
 If one of these options is used, it will be ignored and the content script will emit a warning.
+
+## Usage with Chrome Manifest V3
+
+When using this adapter with a chrome extension using **Manifest V3**, `XMLHttpRequest` isn't available in the service worker (former background script) so the default axios adapter won't work…
+
+To solve this issue, you have to specify a custom adapter that works in this context. I recommend using [@vespaiach/axios-fetch-adapter](https://github.com/vespaiach/axios-fetch-adapter).
+
+```typescript
+import axios from 'axios';
+import { registerMessageHandler } from 'axios-chrome-messaging-adapter';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
+// register the adapter message hanlder and use the custom adapter
+registerMessageHandler({ adapter: fetchAdapter });
+```
 
 ## Development
 
