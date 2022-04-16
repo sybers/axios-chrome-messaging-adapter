@@ -1,13 +1,21 @@
-import 'regenerator-runtime/runtime';
-import fetchAdapter from '@vespaiach/axios-fetch-adapter';
-import axios from 'axios';
+import axios, { AxiosAdapter } from 'axios';
 import {
   AxiosMessagingAdapterRequest,
   AxiosMessagingAdapterResponse
 } from './types';
-import { dataURLToArrayBuffer, isArrayBufferDataUrl } from './utils';
+import {
+  isChromeManifestV3,
+  dataURLToArrayBuffer,
+  isArrayBufferDataUrl
+} from './utils';
 
-export function registerMessageHandler(): void {
+export type AxiosChromeMessageHandlerConfig = {
+  adapter?: AxiosAdapter;
+};
+
+export function registerMessageHandler(
+  config: AxiosChromeMessageHandlerConfig = {}
+): void {
   chrome.runtime.onMessage.addListener(
     (
       request: AxiosMessagingAdapterRequest,
@@ -17,25 +25,20 @@ export function registerMessageHandler(): void {
       if (request.name === 'axiosMessagingAdapterRequest') {
         // perform axios request in the background script
 
-        // If running in a Manifest v3 service worker
-        if (typeof XMLHttpRequest == 'undefined') {
-          request.axiosConfig.adapter = fetchAdapter;
+        // If running in a Manifest v3 service worker,
+        // user must specify an adapter when registering the message handler.
+        if (isChromeManifestV3() && !config.adapter) {
+          const error = new Error(
+            'When using manifest v3, XMLHttpRequest is not available in service workers please use a custom adapter.'
+          );
+
+          console.warn(error.message);
+          sendResponse({ error });
+          return true;
         }
 
-        // Fixes breaking requests
-        if (
-          request.axiosConfig.transformRequest.length === 1 &&
-          request.axiosConfig.transformRequest[0] === null
-        ) {
-          request.axiosConfig.transformRequest = [];
-        }
-
-        // Fixes breaking requests
-        if (
-          request.axiosConfig.transformResponse.length === 1 &&
-          request.axiosConfig.transformResponse[0] === null
-        ) {
-          request.axiosConfig.transformResponse = [];
+        if (config.adapter) {
+          request.axiosConfig.adapter = config.adapter;
         }
 
         if (isArrayBufferDataUrl(request.axiosConfig.data)) {

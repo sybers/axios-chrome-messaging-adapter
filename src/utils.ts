@@ -1,3 +1,9 @@
+export function isChromeManifestV3(): boolean {
+  const { manifest_version } = chrome.runtime.getManifest();
+
+  return manifest_version === 3;
+}
+
 export function isArrayBuffer(data: any): data is ArrayBuffer {
   return (
     data !== undefined && data !== null && data.constructor === ArrayBuffer
