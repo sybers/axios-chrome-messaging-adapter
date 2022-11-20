@@ -82,7 +82,7 @@ import axios from 'axios';
 import { registerMessageHandler } from 'axios-chrome-messaging-adapter';
 import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
-// register the adapter message hanlder and use the custom adapter
+// register the adapter message handler and use the custom adapter
 registerMessageHandler({ adapter: fetchAdapter });
 ```
 
