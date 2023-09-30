@@ -1,5 +1,7 @@
 # axios-chrome-messaging-adapter
 
+> ⚠ Deprecated: this project is no longer needed when using Chrome Manifest v3. It is recommended to switch from Manifest v3 as v2 is currently phasing out.
+
 Axios adapter to pass the requests to a Chrome Extension background script. Useful to avoid CORB in content scripts.
 
 More informations about CORB [here](https://www.chromestatus.com/feature/5629709824032768) and [here](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches).
